@@ -1,0 +1,36 @@
+{
+  "mois" : {
+    "janvier" : "January",
+    "fevrier" : "Februrary",
+    "mars" : "March",
+    "avril" : "April",
+    "mai" : "May",
+    "juin" : "June",
+    "juillet" : "July",
+    "aout" : "August",
+    "septembre" : "September",
+    "octobre" : "October",
+    "novembre" : "November",
+    "decembre" : "December"
+  },
+  "jour" : {
+    "lundi" : "Monday",
+    "mardi" : "Tuesday",
+    "mercredi" : "Wednesday",
+    "jeudi" : "Thursday",
+    "vendredi" : "Friday",
+    "samedi" : "Saturday",
+    "dimanche" : "Sunday"
+  },
+  "description" : {
+    "AN" : "Christmas trees",
+    "CR" : "Collection postponed to the following day",
+    "MC" : "Compostable materials",
+    "MR" : "Recyclable materials",
+    "OM" : "Household garbage"
+  },
+  "secteur" : {
+    "est" : "East",
+    "ouest" : "West"
+  }
+}

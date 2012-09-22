@@ -1,0 +1,36 @@
+{
+  "mois" : {
+    "janvier" : "Janvier",
+    "fevrier" : "Février",
+    "mars" : "Mars",
+    "avril" : "Avril",
+    "mai" : "Mai",
+    "juin" : "Juin",
+    "juillet" : "Juillet",
+    "aout" : "Août",
+    "septembre" : "Septembre",
+    "octobre" : "Octobre",
+    "novembre" : "Novembre",
+    "decembre" : "Décembre"
+  },
+  "jour" : {
+    "lundi" : "Lundi",
+    "mardi" : "Mardi",
+    "mercredi" : "Mercredi",
+    "jeudi" : "Jeudi",
+    "vendredi" : "Vendredi",
+    "samedi" : "Samedi",
+    "dimanche" : "Dimanche"
+  },
+  "description" : {
+    "AN" : "Arbres de Noël",
+    "CR" : "Collecte reportée au lendemain",
+    "MC" : "Matières compostables",
+    "MR" : "Matières recyclables",
+    "OM" : "Ordures ménagères"
+  },
+  "secteur" : {
+    "est" : "Est",
+    "ouest" : "Ouest"
+  }
+}
