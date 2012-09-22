@@ -6,7 +6,7 @@ $(document).ready(function() {
     
     function getCollectionInfo(address, cb){
         var result = traitment();
-        var result = $.get(, function());
+        var result = $.get(function(){});
         cb(result);
     }
     
