@@ -4,7 +4,17 @@
    Author's custom styles
    ========================================================================== */
 
-
+#background {
+/*  position:absolute;
+  top:0;
+*/
+  height:600px;
+  background: url(/img/background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
 
 
