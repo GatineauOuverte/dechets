@@ -39,12 +39,13 @@
                     
                     <a class="brand" href="#">Gatineau Ouverte</a>
                     <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="#">Dechets</a></li>
+                            <!--
                             <li><a href="#about">About</a></li>
                             <li><a href="#contact">Contact</a></li>
-                            
+                            -->
                         </ul>
-                    <!--
+                    <!-- commented out resposive navbar
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -83,33 +84,44 @@
         <div class="container roundorama" id="wizard">
 
             <!-- Example row of columns -->
-            <div class="row">
-                <div class="span4">
-                    <h2>Calendier</h2>
-                    <div class="roundorama white">
-                        <div id="calendar">
-                        
+            <div id="entry" class="row">
+                <div class="offset2"></div>
+                <div class="span8">
+                    <h3>Addresse:</h3>
+                    <form id="entryform" class="form-inline">
+                      <label>Entrez votre addresse:</label><br/>
+                      <input type="text" placeholder="Entrez l'adresse…"> <button type="submit" class="btn btn-success"><i class="icon-arrow-right"></i></button>
+                      
+                      <span class="help-block">E.g. 18 Lavallee.</span>
+                    </form>
+                </div>
+            </div>
+            <div id="result" class="row hide">
+                <div class="span8">
+                    <div class="btn-toolbar">
+                        <div class="btn-group">
+                            <a id="restart" class="btn btn-success" href="#"><i class="icon-arrow-left"></i> Recommencer</a>
                         </div>
+                    </div>
+                    <h3>Prochaine collecte:</h3>
+                    <div class="roundorama white">
+                        <p>Resultat de la recherche</p>
+                        <div id="calendar"></div>
                     </div>
                 </div>
                 <div class="span4">
-                    <h2>Prochaine collecte:</h2>
-                    <div class="roundorama white"></div>
-                    
-               </div>
-                <div class="span4">
                     <h2>Rappel</h2>
                     <div class="roundorama white">
-                    <p>Donec sed odio dui.</p>
-                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                        <p>Envoyez-moi un rappel hebdomadaire par couriel.</p>
+                        <p><a class="btn" href="#">par couriel &raquo;</a></p>
                     </div>
                     <div class="roundorama white spacer">
-                    <p>Donec sed odio dui.</p>
-                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                        <p>Envoyez-moi un rappel hebdomadaire par twitter.</p>
+                        <p><a class="btn" href="#">par Twitter &raquo;</a></p>
                     </div>
                     <div class="roundorama white">
-                    <p>Donec sed odio dui.</p>
-                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                    <p>Ajouter des entres dans iCal,Outlook ou Google Calendar.</p>
+                    <p><a class="btn" href="#">par calendrier &raquo;</a></p>
                     </div>
                 </div>
             </div>
@@ -117,7 +129,7 @@
             <hr>
 
             <footer>
-                <p>&copy; Company 2012</p>
+                <p>&copy; Gatineau Ouverte 2012</p>
             </footer>
 
         </div> <!-- /container -->
