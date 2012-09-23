@@ -97,3 +97,7 @@ function parseAddress(rawAddress) {
     };
     return parsedAddress;
 }
+
+function buildURL(sourceAddress) {
+    return "http://some/url";
+}
