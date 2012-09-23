@@ -89,10 +89,14 @@
                 <div class="span8">
                     <h3>Addresse:</h3>
                     <form id="entryform" class="form-inline">
-                      <label>Entrez votre addresse:</label><br/>
-                      <input type="text" placeholder="mon adresse…"> <button type="submit" class="btn btn-success"><i class="icon-arrow-right"></i></button>
-                      
-                      <span class="help-block">E.g. 18 Lavallee.</span>
+                        <label>Entrez votre addresse:</label><br/>
+                        <input id="addressInfo" type="text" placeholder="mon adresse…"> <button type="submit" class="btn btn-success"><i class="icon-arrow-right"></i></button>
+
+                        <span class="help-block">E.g. 18 Lavallee.</span>
+                        <div id="addressError" class="alert alert-error hide">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>Erreur</strong> <span id="addressErrorMessage"></span>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -106,6 +110,7 @@
                     <h3>Prochaine collecte:</h3>
                     <div class="roundorama white">
                         <p>Resultat de la recherche</p>
+                        <pre id="addressResult"></pre>
                         <div id="calendar"></div>
                     </div>
                 </div>
