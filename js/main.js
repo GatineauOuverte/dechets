@@ -12,21 +12,38 @@ $(document).ready(function() {
         getCollectionInfo(addressInfo,function(error,result){
             console.log('addressInfo',addressInfo);
             if (error){
-                $('#addressErrorMessage').text(error);
-                $('#addressError').show();
-            } else {
+                showError(error);
+            } else {                
+                // go to results page ....
+
+                // hide entry form
                 $("#entry").hide(); 
                 
+                // set the results
                 $("#addressResult").text(JSON.stringify(result));
-                
-                $("#result").show();
-                
+                                
                 // remove and redraw the calendar
                 $('#calendar').html('').fullCalendar({
                     // put your options and callbacks here
                 });
+                // add the calendar entries...
+                
+                // show the panel
+                $("#result").show();
             }
         });
+    }
+
+    function showError(message){
+        if ($('#addressError').length===0) {
+            var $err=$('<div id="addressError" class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button><strong>Erreur</strong> <span id="addressErrorMessage"></span></div>');
+            $('#entryform').append($err);
+        }
+        $('#addressErrorMessage').text(message);
+        $('#addressError').show();
+    }
+    function hideError(){
+        $('#addressError').remove();        
     }
     
     // navigation back to initial address entry screen
@@ -35,8 +52,7 @@ $(document).ready(function() {
         // remove the calendar, so it is ready to be redrawn on next submit
         $('#calendar').html('');
 
-        $('#addressErrorMessage').text('');
-        $('#addressError').hide();
+        hideError();
         $("#entry").show(); 
     }
     
@@ -45,6 +61,10 @@ $(document).ready(function() {
     // parse l'info retourne par lle service
     // the callback's signature should be callback(error,result)
     function getCollectionInfo(addressInfo, callback){
+        if (!addressInfo){
+            callback('Le champs addresse est requis.');
+            return;
+        }
         var rand = Math.random();
         if (rand<.33) {
             callback('mock parse error');
