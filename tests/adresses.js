@@ -14,5 +14,5 @@ test("buildURL", function() {
         "rue_id" : "357"
     };
     var testURL = buildURL(testAddress);
-    ok(testURL == "http://some/url", "");
+    ok(testURL == "http://cartes.gatineau.ca/ArcGisServices/GisRecyclGat/FrmGATINEAU.aspx?Lang=FR&culture=fr-CA&NumeCivi=13&NumRue=357", "");
 });
