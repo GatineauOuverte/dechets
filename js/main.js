@@ -22,14 +22,15 @@ $(document).ready(function() {
                 // set the results
                 $("#addressResult").text(JSON.stringify(result));
                                 
+                // show the panel (before you draw the calendar!)
+                $("#result").show();
+
                 // remove and redraw the calendar
                 $('#calendar').html('').fullCalendar({
                     // put your options and callbacks here
                 });
                 // add the calendar entries...
                 
-                // show the panel
-                $("#result").show();
             }
         });
     }
