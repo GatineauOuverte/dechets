@@ -100,7 +100,7 @@ function parseAddress(rawAddress) {
 
 function buildURL(sourceAddress) {
     var resourceURL = "http://cartes.gatineau.ca/ArcGisServices/GisRecyclGat/FrmGATINEAU.aspx?Lang=FR&culture=fr-CA"
-    var numeroCivique = "&NumeCivi=13"
-    var numRue = "&NumRue=357";
+    var numeroCivique = "&NumeCivi=" + sourceAddress.numero;
+    var numRue = "&NumRue=" + sourceAddress.rue_id;
     return resourceURL + numeroCivique + numRue;
 }
