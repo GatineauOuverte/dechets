@@ -15,7 +15,7 @@ $(document).ready(function() {
         $("#result").hide();
     });    
     function getCollectionInfo(address, cb){
-        var result = traitment();
+        var location = parseAddress(address);
         var result = $.get(function(){});
         cb(result);
     }
@@ -26,3 +26,11 @@ $(document).ready(function() {
     }
     
 });
+
+function parseAddress(rawAddress) {
+    var parsedAddress = {
+        "numero" : "13",
+        "rue_id" : "357"
+    };
+    return parsedAddress;
+}
