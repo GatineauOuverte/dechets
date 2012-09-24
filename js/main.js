@@ -3,7 +3,74 @@ $(document).ready(function() {
     $('#entryform').submit(submitAddress);    
     $('#restart').click(returnToAddressEntry);
 
+    initAutocomplete();
+    
     // console.log('coco');
+    
+    
+    function initAutocomplete() {
+        $.getJSON('data/rue.json', function (data) {
+            var autoCompleteData = [],
+                $searchInput = $('#addressInfo'),
+                civicNumberRx = /^\d+ ?/,
+                typeRx = /, ([^,]+)/,
+                type,
+                item,
+                street,
+                pluginInstance,
+                oldSearchFn;
+                
+            function onFocusOrSelect(event, ui) {
+                this.value = pluginInstance.civicNumber + ui.item.label;
+                    
+                return false;
+            }
+            
+            //prepare data for the autocomplete plugin
+            for (var i = 0, len = data.length; i < len; i++) {
+                street = (item = data[i]).rue;
+                type = (type = street.match(typeRx)) ? type[1] : '';
+                
+                autoCompleteData.push({
+                    value: item.id,
+                    label: type + ' ' + street.replace(/,.+/, '')
+                });
+            }
+            
+            //init the plugin
+            $searchInput.autocomplete({
+                source: autoCompleteData,
+                minLength: 4,
+                delay: 400,
+                focus: onFocusOrSelect,
+                select: onFocusOrSelect,
+                search: function (event, ui) {
+                    //do not search if no civic number is entered
+                    return civicNumberRx.test(this.value);
+                }
+            });
+            
+            pluginInstance = $searchInput.data('autocomplete');
+            oldSearchFn = pluginInstance._search;
+            
+            $.extend(pluginInstance, {
+                _search: function (val) {
+                    
+                    this.civicNumber = val.match(civicNumberRx)[0];
+                    
+                    oldSearchFn.call(this, val.replace(civicNumberRx, '')); 
+                },
+                
+                //override the default item template
+                _renderItem: function( ul, item) {
+                    return $("<li></li>")
+                        .data( "item.autocomplete", item)
+                        .append( $( "<a></a>" ).text(this.civicNumber + item.label))
+                        .appendTo( ul );
+                }
+            });
+        });
+    }
     
     function submitAddress(event){
         event.preventDefault();
