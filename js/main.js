@@ -39,7 +39,12 @@ $(document).ready(function() {
             
             //init the plugin
             $searchInput.autocomplete({
-                source: autoCompleteData,
+                source: function(request, response) {
+                    var results = $.ui.autocomplete.filter(autoCompleteData, request.term);
+            
+                    //limit the results to 10
+                    response(results.slice(0, 10));
+                },
                 minLength: 4,
                 delay: 400,
                 focus: onFocusOrSelect,
