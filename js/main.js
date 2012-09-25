@@ -196,7 +196,7 @@ $(document).ready(function() {
         
         $.getJSON('data/collecte2012.json', function (data) {
             
-            var colorMap = {MC:'blue',MR:'green',OM:'gray',AN:'pink'}
+            var colorMap = {MC:'#8A4117',MR:'#2554C7',OM:'gray',AN:'#F62217',CR:'#3E3535'}
             var dataRow
             
             // Get the sector depending on the day, date and collecteInfo
