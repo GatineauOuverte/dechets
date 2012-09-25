@@ -111,22 +111,6 @@ $(document).ready(function() {
                     // add the calendar entries...
                         events: events
                     });
-                    //    events: [
-                    //        {
-                    //            title  : 'event1',
-                    //            start  : '2012-09-28'
-                    //        },
-                    //        {
-                    //            title  : 'event2',
-                    //            start  : '2012-09-28'
-                    //        },
-                    //        {
-                    //            title  : 'event3',
-                    //            start  : '2012-09-14',
-                    //            allDay : false // will make the time show
-                    //        }
-                    //    ]
-                    //}); 
                 }
             });
         });
@@ -188,10 +172,10 @@ $(document).ready(function() {
         
         var jour = info.jour
         var date = info.MC
-        var events = new Array
+        var events = []
         
         var i = 0
-        var collecteInfo =  new Array
+        var collecteInfo = []
         if (info.CR){
             collecteInfo[i] = "CR";
         } else {
@@ -215,7 +199,9 @@ $(document).ready(function() {
         console.log(collecteInfo)
         
         $.getJSON('data/collecte2012.json', function (data) {
-        
+            
+            var colorMap = {MC:'blue',MR:'green',OM:'gray',AN:'pink'}
+            
             for (var i = 0, len = data.length; i < len; i++) {
                 if (data[i].jour == jour && compareCollecteArray(collecteInfo, data[i].collecte) && data[i].date == date){
                     var secteur = data[i].secteur;
@@ -224,11 +210,15 @@ $(document).ready(function() {
                        
             for (var i = 0, len = data.length; i < len; i++) {
                 if (data[i].secteur == secteur && data[i].jour == jour){
-                    events.push({title:'Test',start:data[i].date});
+                    
+                    for(var x = 0, collectLen = data[i].collecte.length; x < collectLen; x++){
+                        events.push({title:data[i].collecte[x],start:data[i].date,color:colorMap[data[i].collecte[x]]});
+                        console.log(data[i].collecte[x])
+                    }
                 }
             }
-
-            callback(null, events);
+        
+        callback(null, events);
 
         });
             }
