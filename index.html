@@ -40,8 +40,8 @@
                     <a class="brand" href="#">Déchets Gatineau</a>
                     <ul class="nav">
                             <li class="active"><a href="#">À propos</a></li>
-                            <li class="active"><a href="#">Aide</a></li>
-                            <li class="active"><a href="#">English</a></li>
+                            <li><a href="#">Aide</a></li>
+                            <li><a href="#">English</a></li>
                             <!--
                             <li><a href="#about">About</a></li>
                             <li><a href="#contact">Contact</a></li>
@@ -86,18 +86,22 @@
         <div class="container roundorama" id="wizard">
 
             <!-- Example row of columns -->
-            <div id="entry" class="row">
-                <div class="offset2"></div>
-                <div class="span8">
+            <div id="entry">
+                <div id="entry-content">
                     <h3>C'est quand le jour des ordures?</h3>
-                    <form id="entryform" class="form-inline">
-                        <label>Entrez votre adresse:</label><br/>
-                        <input id="addressInfo" type="text" placeholder="mon adresse…"> <button type="submit" class="btn btn-success"><i class="icon-arrow-right"></i></button>
-
-                        <span class="help-block">E.g. 25 laurier</span>
+                    
+                    <form id="entryform">
+                        <div class="input-append">
+                            <input id="addressInfo" type="text" class="input-large" placeholder="Entrez votre adresse…">
+                            <button type="submit" class="btn btn-success btn-large">
+                                <i class="icon-arrow-right"></i>
+                            </button> 
+                        </div>
+                        <span class="help-block">Exemple: <span>25 laurier</span></span>
                     </form>
                 </div>
             </div>
+            
             <div id="result" class="row hide">
                 <div class="span8">
                     <div class="btn-toolbar">
