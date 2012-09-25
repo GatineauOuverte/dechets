@@ -163,9 +163,6 @@ $(document).ready(function() {
         var result = {"adresse":"25 rue Laurier","secteur":"Secteur de Hull","jour":"vendredi","MC":"2012-09-28","MR":"2012-10-05","OM":"2012-09-28"}
         callback(null,result);
         
-        
-        //getCalendarEvents(result);
-        //return result;
     }
     
     function getCalendarEvents(info, callback){
@@ -174,6 +171,7 @@ $(document).ready(function() {
         var date = info.MC
         var events = []
         
+        // Format collect info (from city service) to be able to get the sector
         var i = 0
         var collecteInfo = []
         if (info.CR){
@@ -196,33 +194,31 @@ $(document).ready(function() {
             }
         }
         
-        console.log(collecteInfo)
-        
         $.getJSON('data/collecte2012.json', function (data) {
             
             var colorMap = {MC:'blue',MR:'green',OM:'gray',AN:'pink'}
+            var dataRow
             
+            // Get the sector depending on the day, date and collecteInfo
             for (var i = 0, len = data.length; i < len; i++) {
-                if (data[i].jour == jour && compareCollecteArray(collecteInfo, data[i].collecte) && data[i].date == date){
-                    var secteur = data[i].secteur;
+                dataRow = data[i];
+                if (dataRow.jour == jour && compareCollecteArray(collecteInfo, dataRow.collecte) && dataRow.date == date){
+                    var secteur = dataRow.secteur;
                 }
             }
-                       
+            
+            // Generate calendar events depending on sector and date            
             for (var i = 0, len = data.length; i < len; i++) {
                 if (data[i].secteur == secteur && data[i].jour == jour){
-                    
                     for(var x = 0, collectLen = data[i].collecte.length; x < collectLen; x++){
-                        events.push({title:data[i].collecte[x],start:data[i].date,color:colorMap[data[i].collecte[x]]});
-                        console.log(data[i].collecte[x])
+                        dataRow = data[i].collecte[x]
+                        events.push({title:dataRow,start:data[i].date,color:colorMap[dataRow]});
                     }
                 }
             }
-        
         callback(null, events);
-
         });
-            }
-    
+    }
 });
 
 function compareCollecteArray(searchResult, jsonResult){
