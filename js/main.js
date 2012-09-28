@@ -1,5 +1,10 @@
 $(document).ready(function() {
     
+     $('#calendar').fullCalendar({
+        // put your options and callbacks here
+        height: 400
+    });
+    
     var typeMap = {
             'arbres de noël': 'AN',
             'collecte reportée au lendemain': 'CR',
