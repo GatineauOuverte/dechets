@@ -1,6 +1,27 @@
 $(document).ready(function() {
     
-    var rues;
+    var typeMap = {
+            'arbres de noël': 'AN',
+            'collecte reportée au lendemain': 'CR',
+            'matières compostables': 'MC',
+            'matières recyclables': 'MR',
+            'ordures ménagères': 'OM' 
+        },
+        monthMap = {
+            'janvier': 0,
+            'février': 1,
+            'mars': 2,
+            'avril': 3,
+            'mai': 4,
+            'juin': 5,
+            'juillet': 6,
+            'août': 7,
+            'septembre': 8,
+            'octobre': 9,
+            'novembre': 10,
+            'décembre': 11
+        },
+        rues;
     
     // wire up the submt and return buttons
     $('#entryform').submit(submitAddress);    
@@ -8,20 +29,49 @@ $(document).ready(function() {
 
     initAutocomplete();
     
-    // console.log('coco');
-    
-    function getStreetId() {
-        var selectedItem = $('#addressInfo').data('autocomplete').selectedItem;
+    //parse function not finished
+    function parseCollectTextareaContent(content) {
+        var types = [],
+        collectRx, groups, k, day;
         
-        if (selectedItem) {
-            return selectedItem;
+        for (k in typeMap) {
+            types.push(k);
         }
         
-        //find the item
-        return false;
+        collectRx = new RegExp(
+            '\\((' + types.join('|') + ')\\)' //(map_key)
+            + '\\s+:\\s+(?:\\w+,\\s+(\\d+)\\s+(\\w+)\\s+(\\d+))?' // : day_name, day month year (optionnal)
+        , 'ig');
+        
+        while(groups = collectRx.exec(content)) {
+            console.log(groups);
+            console.log('type: ', typeMap[groups[1]]); //type
+            if (day = groups[2]) {
+                console.log('date ', new Date(groups[4], monthMap[groups[3]], day));
+                console.log('day: ', day);
+                console.log('day name: ', groups[3]);
+                console.log('year :', groups[4]);
+            }
+        }
     }
     
-    
+    function getStreetId(parsedAddress) {
+        var selectedItem = $('#addressInfo').data('autocomplete').selectedItem,
+            item;
+        
+        if (selectedItem) {
+            return selectedItem.value;
+        }
+        
+        for (var i = 0, len = rues.length; i < len; i++) {
+            item = rues[i];
+            if (item.street.toLowerCase() === parsedAddress.nom) {
+                return item.value;
+            }
+        }
+        
+        return null;
+    }
     
     function initAutocomplete() {
         $.getJSON('data/rue.json', function (data) {
@@ -33,13 +83,14 @@ $(document).ready(function() {
                 item,
                 street,
                 $pluginInstance,
-                oldSearchFn;
+                oldSearchFn,
+                streetName;
             
             //Make rue data accessible globally
-            rues = data;
+            rues = autoCompleteData;
                 
             function onFocusOrSelect(event, ui) {
-                this.value = pluginInstance.civicNumber + ui.item.label;
+                this.value = $pluginInstance.civicNumber + ui.item.label;
                     
                 return false;
             }
@@ -48,10 +99,12 @@ $(document).ready(function() {
             for (var i = 0, len = data.length; i < len; i++) {
                 street = (item = data[i]).rue;
                 type = (type = street.match(typeRx)) ? type[1] : '';
+                streetName = street.replace(/,.+/, '');
                 
                 autoCompleteData.push({
                     value: item.id,
-                    label: type + ' ' + street.replace(/,.+/, '')
+                    label: type + ' ' + streetName,
+                    street: streetName
                 });
             }
             
@@ -164,7 +217,7 @@ $(document).ready(function() {
     // the callback's signature should be callback(error,result)
     function getCollectionInfo(addressInfo, callback){
         
-        var addressParsed
+        var addressParsed, streetId, query;
         
         if (!addressInfo){
             callback('Le champs addresse est requis.');
@@ -173,7 +226,22 @@ $(document).ready(function() {
         
         
         addressParsed = parseAddress(addressInfo);
-        console.log(addressParsed);
+        
+        streetId = getStreetId(addressParsed);
+        
+        query = [
+            'select * from html where url = ',
+            "'http://cartes.gatineau.ca/ArcGisServices/GisRecyclGat/FrmGATINEAU.aspx?",
+            'NumeCivi=', addressParsed.numero, '&NumRue=', streetId, "'",
+            "and xpath = '//textarea'"
+        ].join('');
+        
+        
+        $.YQL(query, function (data) {
+            var content = data.query.results.textarea.content;
+            
+            parseCollectTextareaContent(content);
+        });
         
         //var rand = Math.random();
         //if (rand<.33) {
@@ -188,6 +256,8 @@ $(document).ready(function() {
         //    return;
         //}
         // fake result
+        
+        //jour date keys
         var result = {"adresse":"25 rue Laurier","secteur":"Secteur de Hull","jour":"vendredi","MC":"2012-09-28","MR":"2012-10-05","OM":"2012-09-28"}
         callback(null,result);
         
