@@ -143,10 +143,18 @@ $(document).ready(function() {
     // parse l'info retourne par lle service
     // the callback's signature should be callback(error,result)
     function getCollectionInfo(addressInfo, callback){
+        
+        var addressParsed
+        
         if (!addressInfo){
             callback('Le champs addresse est requis.');
             return;
         }
+        
+        
+        addressParsed = parseAddress(addressInfo);
+        console.log(addressParsed);
+        
         //var rand = Math.random();
         //if (rand<.33) {
         //    callback('mock parse error');
@@ -162,6 +170,18 @@ $(document).ready(function() {
         // fake result
         var result = {"adresse":"25 rue Laurier","secteur":"Secteur de Hull","jour":"vendredi","MC":"2012-09-28","MR":"2012-10-05","OM":"2012-09-28"}
         callback(null,result);
+        
+    }
+    
+    function parseAddress(address){
+        var addressParsed = {numero: 0,nom:''}
+        var parseArray = []
+        
+        parseArray = address.match(/^(\d+)\s+(.+)/)
+        addressParsed.numero = parseArray[1]
+        addressParsed.nom = parseArray[2]
+                
+        return addressParsed
         
     }
     
@@ -240,13 +260,7 @@ function compareCollecteArray(searchResult, jsonResult){
     return equal
 }
 
-function parseAddress(rawAddress) {
-    var parsedAddress = {
-        "numero" : "13",
-        "rue_id" : "357"
-    };
-    return parsedAddress;
-}
+
 
 function buildURL(sourceAddress) {
     var resourceURL = "http://cartes.gatineau.ca/ArcGisServices/GisRecyclGat/FrmGATINEAU.aspx?Lang=FR&culture=fr-CA"
