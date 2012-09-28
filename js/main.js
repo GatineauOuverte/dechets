@@ -1,4 +1,7 @@
-$(document).ready(function() {    
+$(document).ready(function() {
+    
+    var rues;
+    
     // wire up the submt and return buttons
     $('#entryform').submit(submitAddress);    
     $('#restart').click(returnToAddressEntry);
@@ -6,6 +9,18 @@ $(document).ready(function() {
     initAutocomplete();
     
     // console.log('coco');
+    
+    function getStreetId() {
+        var selectedItem = $('#addressInfo').data('autocomplete').selectedItem;
+        
+        if (selectedItem) {
+            return selectedItem;
+        }
+        
+        //find the item
+        return false;
+    }
+    
     
     
     function initAutocomplete() {
@@ -17,8 +32,11 @@ $(document).ready(function() {
                 type,
                 item,
                 street,
-                pluginInstance,
+                $pluginInstance,
                 oldSearchFn;
+            
+            //Make rue data accessible globally
+            rues = data;
                 
             function onFocusOrSelect(event, ui) {
                 this.value = pluginInstance.civicNumber + ui.item.label;
@@ -55,10 +73,10 @@ $(document).ready(function() {
                 }
             });
             
-            pluginInstance = $searchInput.data('autocomplete');
-            oldSearchFn = pluginInstance._search;
+            $pluginInstance = $searchInput.data('autocomplete');
+            oldSearchFn = $pluginInstance._search;
             
-            $.extend(pluginInstance, {
+            $.extend($pluginInstance, {
                 _search: function (val) {
                     
                     this.civicNumber = val.match(civicNumberRx)[0];
@@ -77,11 +95,13 @@ $(document).ready(function() {
         });
     }
     
-    function submitAddress(event){
+    function submitAddress(event) {
         event.preventDefault();
+        
         var addressInfo = $('#addressInfo').val();
+        
         // parse the address and lookup the info
-        getCollectionInfo(addressInfo,function(error,result){
+        getCollectionInfo(addressInfo, function(error,result){
             
             //var events = new Array
             
@@ -143,7 +163,7 @@ $(document).ready(function() {
     // parse l'info retourne par lle service
     // the callback's signature should be callback(error,result)
     function getCollectionInfo(addressInfo, callback){
-        if (!addressInfo){
+        if (!addressInfo) {
             callback('Le champs addresse est requis.');
             return;
         }
