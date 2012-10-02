@@ -34,10 +34,12 @@ $(document).ready(function() {
 
     initAutocomplete();
     
-    //parse function not finished
     function parseCollectTextareaContent(content) {
+        
+        console.log(content);
         var types = [],
-        collectRx, groups, k, day;
+            result = {},
+            collectRx, groups, k, day, v;
         
         for (k in typeMap) {
             types.push(k);
@@ -45,19 +47,32 @@ $(document).ready(function() {
         
         collectRx = new RegExp(
             '\\((' + types.join('|') + ')\\)' //(map_key)
-            + '\\s+:\\s+(?:\\w+,\\s+(\\d+)\\s+(\\w+)\\s+(\\d+))?' // : day_name, day month year (optionnal)
+            + '\\s+:\\s+(?:(\\w+),\\s+(\\d+)\\s+(\\w+)\\s+(\\d+))?' // : day_name, day month year (optionnal)
         , 'ig');
         
         while(groups = collectRx.exec(content)) {
-            console.log(groups);
-            console.log('type: ', typeMap[groups[1]]); //type
-            if (day = groups[2]) {
-                console.log('date ', new Date(groups[4], monthMap[groups[3]], day));
-                console.log('day: ', day);
-                console.log('day name: ', groups[3]);
-                console.log('year :', groups[4]);
+            type = typeMap[groups[1]];
+            
+            if (day = groups[3]) {
+                result[type] = new Date(groups[5], monthMap[groups[4]], day);
+                
+                if (!result.jour) {
+                    result.jour = groups[2];
+                }
             }
         }
+        
+        result.MC = result.MR < result.OM ? result.MR : result.OM;
+        
+        //convert dates back as strings
+        for (k in result) {
+            if (k !== 'jour') {
+                v = result[k];
+                result[k] = v.toISOString().substring(0, 10);
+            }
+        }
+        
+        return result;
     }
     
     function getStreetId(parsedAddress) {
@@ -247,7 +262,7 @@ $(document).ready(function() {
         $.YQL(query, function (data) {
             var content = data.query.results.textarea.content;
             
-            parseCollectTextareaContent(content);
+            callback(null, parseCollectTextareaContent(content));
         });
         
         //var rand = Math.random();
@@ -265,9 +280,8 @@ $(document).ready(function() {
         // fake result
         
         //jour date keys
-        var result = {"adresse":"25 rue Laurier","secteur":"Secteur de Hull","jour":"vendredi","MC":"2012-09-28","MR":"2012-10-05","OM":"2012-09-28"}
-        callback(null,result);
-        
+        //var result = {"adresse":"25 rue Laurier","secteur":"Secteur de Hull","jour":"vendredi","MC":"2012-09-28","MR":"2012-10-05","OM":"2012-09-28"}
+        //callback(null,result);
     }
     
     function parseAddress(address){
