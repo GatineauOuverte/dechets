@@ -200,7 +200,8 @@ $(document).ready(function() {
                     // remove and redraw the calendar
                     $('#calendar').html('').fullCalendar({
                     // add the calendar entries...
-                        events: events
+                        events: events,
+                        height: 400
                     });
                 }
             });
