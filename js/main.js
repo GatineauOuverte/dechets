@@ -126,8 +126,8 @@ $(document).ready(function() {
                 focus: onFocusOrSelect,
                 select: onFocusOrSelect,
                 search: function (event, ui) {
-                    //do not search if no civic number is entered
-                    return civicNumberRx.test(this.value);
+                    //do not search if no civic number is entered or if we are not in the search screen
+                    return civicNumberRx.test(this.value) && $('#entry').css('display') !== 'none';
                 }
             });
             
@@ -155,6 +155,8 @@ $(document).ready(function() {
     
     function submitAddress(event) {
         event.preventDefault();
+        
+        $('#addressInfo').autocomplete('close');
         
         var addressInfo = $('#addressInfo').val();
         
