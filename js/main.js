@@ -1,10 +1,5 @@
 $(document).ready(function() {
     
-     $('#calendar').fullCalendar({
-        // put your options and callbacks here
-        height: 400
-    });
-    
     var typeMap = {
             'arbres de noël': 'AN',
             'collecte reportée au lendemain': 'CR',
@@ -171,8 +166,6 @@ $(document).ready(function() {
     function submitAddress(event) {
         event.preventDefault();
         
-        $('#addressInfo').autocomplete('close');
-        
         var addressInfo = $('#addressInfo').val();
         
         // parse the address and lookup the info
@@ -200,6 +193,9 @@ $(document).ready(function() {
                                             
                     // show the panel (before you draw the calendar!)
                     $("#result").show();
+                    
+                    //Make sure the autocomplete list is hidden
+                    $('#addressInfo').autocomplete('close');
             
                     // remove and redraw the calendar
                     $('#calendar').html('').fullCalendar({
