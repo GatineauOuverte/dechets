@@ -61,10 +61,10 @@ var defaults = {
 	// locale
 	isRTL: false,
 	firstDay: 0,
-	monthNames: ['Janvier','Février','Mars','Apvil','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
-	monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aou','Sep','Oct','Nov','Dec'],
-	dayNames: ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'],
-	dayNamesShort: ['dim','lun','mar','mer','jeu','ven','sam'],
+	monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+	monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+	dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+	dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
 	buttonText: {
 		prev: '&nbsp;&#9668;&nbsp;',
 		next: '&nbsp;&#9658;&nbsp;',
@@ -75,25 +75,7 @@ var defaults = {
 		week: 'week',
 		day: 'day'
 	},
-
-	// locale EN
-	// isRTL: false,
-	// firstDay: 0,
-	// monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-	// monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-	// dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-	// dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
-	// buttonText: {
-	// 	prev: '&nbsp;&#9668;&nbsp;',
-	// 	next: '&nbsp;&#9658;&nbsp;',
-	// 	prevYear: '&nbsp;&lt;&lt;&nbsp;',
-	// 	nextYear: '&nbsp;&gt;&gt;&nbsp;',
-	// 	today: 'today',
-	// 	month: 'month',
-	// 	week: 'week',
-	// 	day: 'day'
-	// },
-		
+	
 	// jquery-ui theming
 	theme: false,
 	buttonIcons: {
