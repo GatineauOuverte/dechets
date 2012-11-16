@@ -14,10 +14,13 @@ body
 
 #wizard {
     background-color:rgba(255,255,255,0.85);
+    margin: 100px auto;
+  
+ 
 }
 
 #entry {
-  text-align: center;
+  text-align: left;
 }
 
 #entry-content {
@@ -28,7 +31,7 @@ body
 #entryform .help-block {
   font-style: italic;
   padding-top: 3px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: normal;
 }
 
