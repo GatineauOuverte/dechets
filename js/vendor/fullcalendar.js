@@ -61,7 +61,7 @@ var defaults = {
 	// locale
 	isRTL: false,
 	firstDay: 0,
-	monthNames: ['Janvier','Février','Mars','Apvil','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+	monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
 	monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aou','Sep','Oct','Nov','Dec'],
 	dayNames: ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'],
 	dayNamesShort: ['dim','lun','mar','mer','jeu','ven','sam'],
