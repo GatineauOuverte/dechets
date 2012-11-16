@@ -70,7 +70,7 @@ var defaults = {
 		next: '&nbsp;&#9658;&nbsp;',
 		prevYear: '&nbsp;&lt;&lt;&nbsp;',
 		nextYear: '&nbsp;&gt;&gt;&nbsp;',
-		today: 'today',
+		today: 'aujourd\'hui',
 		month: 'month',
 		week: 'week',
 		day: 'day'

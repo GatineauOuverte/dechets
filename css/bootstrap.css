@@ -3756,9 +3756,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .nav > li > a {
-  display: block;
-  margin-top: 20px;
-  
+  display: block;  
 }
 
 .nav > li > a:hover {
